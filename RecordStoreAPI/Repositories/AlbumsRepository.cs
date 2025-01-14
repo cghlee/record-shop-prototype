@@ -7,6 +7,7 @@ public interface IAlbumsRepository
 {
     List<Album> GetAllAlbums();
     Album AddNewAlbum(Album newAlbum);
+    Album? FindAlbumById(int id);
 }
 
 public class AlbumsRepository : IAlbumsRepository
@@ -21,6 +22,12 @@ public class AlbumsRepository : IAlbumsRepository
     {
         List<Album> allAlbums = _albumsDbContext.Albums.ToList();
         return allAlbums;
+    }
+
+    public Album? FindAlbumById(int id)
+    {
+        Album? foundAlbum = _albumsDbContext.Albums.FirstOrDefault(album => album.Id == id);
+        return foundAlbum;
     }
 
     public Album AddNewAlbum(Album newAlbum)

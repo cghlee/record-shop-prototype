@@ -73,6 +73,68 @@ public class ServiceTests
     }
     #endregion
 
+    #region FindAlbumById method tests
+    [Test]
+    public void FindAlbumById_OnValidId_ReturnsAlbumType()
+    {
+        // Arrange
+        var expected = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumById(2)).Returns(expected);
+
+        // Act
+        var result = albumsService.FindAlbumById(2);
+
+        // Assert
+        Assert.That(result, Is.TypeOf<Album>());
+    }
+
+    [Test]
+    public void FindAlbumById_CallsRepositoryMethodOnce()
+    {
+        // Arrange
+        var expected = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumById(2)).Returns(expected);
+
+        // Act
+        albumsService.FindAlbumById(2);
+
+        // Assert
+        _mockRepository.Verify(mockRepository => mockRepository.FindAlbumById(2), Times.Once());
+    }
+
+    [Test]
+    public void FindAlbumById_OnValidId_ReturnsRetrievedAlbum()
+    {
+        // Arrange
+        var expected = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumById(2)).Returns(expected);
+
+        // Act
+        var result = albumsService.FindAlbumById(2);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void FindAlbumById_OnInvalidId_ReturnsNull()
+    {
+        // Arrange
+        Album? expected = null;
+
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumById(int.MaxValue)).Returns(expected);
+
+        // Act
+        var result = albumsService.FindAlbumById(int.MaxValue);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+    #endregion
+
     #region AddNewAlbum method tests
     [Test]
     public void AddNewAlbum_ReturnsAlbumType()

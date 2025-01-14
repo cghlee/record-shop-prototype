@@ -21,6 +21,18 @@ public class AlbumsController : ControllerBase
         return Ok(allAlbums);
     }
 
+    [HttpGet]
+    [Route("{id}")]
+    public IActionResult GetAlbumById(int id)
+    {
+        Album? foundAlbum = _albumsService.FindAlbumById(id);
+
+        if (foundAlbum == null)
+            return BadRequest($"No album exists with an ID of {id}.");
+
+        return Ok(foundAlbum);
+    }
+
     [HttpPost]
     public IActionResult PostNewAlbum(Album newAlbum)
     {

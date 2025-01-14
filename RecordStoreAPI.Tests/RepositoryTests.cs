@@ -67,6 +67,51 @@ public class RepositoryTests
     }
     #endregion
 
+    #region FindAlbumById method tests
+    [Test]
+    public void FindAlbumById_OnValidId_ReturnsAlbumType()
+    {
+        // Arrange
+        var expectedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        _testDbContext.Albums.Add(expectedAlbum);
+        _testDbContext.SaveChanges();
+
+        // Act
+        var result = albumsRepository.FindAlbumById(1);
+
+        // Assert
+        Assert.That(result, Is.TypeOf<Album>());
+    }
+
+    [Test]
+    public void FindAlbumById_OnValidId_ReturnsRetrievedAlbum()
+    {
+        // Arrange
+        var expectedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        _testDbContext.Albums.Add(expectedAlbum);
+        _testDbContext.SaveChanges();
+
+        // Act
+        var result = albumsRepository.FindAlbumById(1);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedAlbum));
+    }
+
+    [Test]
+    public void FindAlbumById_OnInvalidId_ReturnsNull()
+    {
+        // Arrange
+        Album? expected = null;
+
+        // Act
+        var result = albumsRepository.FindAlbumById(int.MaxValue);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+    #endregion
+
     #region AddNewAlbum method tests
     [Test]
     public void AddNewAlbum_ReturnsAlbumType()
