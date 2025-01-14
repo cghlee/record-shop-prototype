@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RecordShopAPI.Classes;
+namespace RecordStoreAPI.Classes;
 
-public class Record
+public class Album
 {
     public int Id { get; set; }
 
     [Required]
-    public string Album { get; set; } = "";
+    public string Name { get; set; } = "";
 
     [Required]
     public string Artist { get; set; } = "";

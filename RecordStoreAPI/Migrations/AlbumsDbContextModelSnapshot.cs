@@ -2,20 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RecordShopAPI.DbContexts;
+using RecordStoreAPI.DbContexts;
 
 #nullable disable
 
-namespace RecordShopAPI.Migrations
+namespace RecordStoreAPI.Migrations
 {
-    [DbContext(typeof(RecordsDbContext))]
-    [Migration("20250114112718_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(AlbumsDbContext))]
+    partial class AlbumsDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,17 +21,13 @@ namespace RecordShopAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("RecordShopAPI.Classes.Record", b =>
+            modelBuilder.Entity("RecordStoreAPI.Classes.Album", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Album")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Artist")
                         .IsRequired()
@@ -48,12 +41,16 @@ namespace RecordShopAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Records");
+                    b.ToTable("Albums");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using RecordShopAPI.DbContexts;
-using RecordShopAPI.Repositories;
-using RecordShopAPI.Services;
+using RecordStoreAPI.DbContexts;
+using RecordStoreAPI.Repositories;
+using RecordStoreAPI.Services;
 
-namespace RecordShopAPI;
+namespace RecordStoreAPI;
 
 public class Program
 {
@@ -14,20 +14,20 @@ public class Program
         // Add services to the container.
         builder.Services.AddControllers();
 
-        builder.Services.AddScoped<IRecordsService, RecordsService>();
-        builder.Services.AddScoped<IRecordsRepository, RecordsRepository>();
+        builder.Services.AddScoped<IAlbumsService, AlbumsService>();
+        builder.Services.AddScoped<IAlbumsRepository, AlbumsRepository>();
 
         // Use in-memory database on development environments
         if (builder.Environment.IsDevelopment())
         {
-            builder.Services.AddDbContext<RecordsDbContext>(options =>
+            builder.Services.AddDbContext<AlbumsDbContext>(options =>
                 options.UseInMemoryDatabase("TestDb"));
         }
         else
         {
             string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
-            builder.Services.AddDbContext<RecordsDbContext>(options =>
+            builder.Services.AddDbContext<AlbumsDbContext>(options =>
                 options.UseSqlServer(connectionString));
         }
 

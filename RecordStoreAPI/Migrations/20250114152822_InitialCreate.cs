@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace RecordShopAPI.Migrations
+namespace RecordStoreAPI.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -11,12 +11,12 @@ namespace RecordShopAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Records",
+                name: "Albums",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Album = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Artist = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Composer = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Genre = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -24,7 +24,7 @@ namespace RecordShopAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Records", x => x.Id);
+                    table.PrimaryKey("PK_Albums", x => x.Id);
                 });
         }
 
@@ -32,7 +32,7 @@ namespace RecordShopAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Records");
+                name: "Albums");
         }
     }
 }

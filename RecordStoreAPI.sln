@@ -3,14 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordShopAPI", "RecordShopAPI\RecordShopAPI.csproj", "{BD2D4054-458C-4F85-84A8-CDB0AA5B707E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordStoreAPI", "RecordStoreAPI\RecordStoreAPI.csproj", "{BD2D4054-458C-4F85-84A8-CDB0AA5B707E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{257A837F-1DD5-4307-8537-460AAEC5C551}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordStoreAPI.Tests", "RecordStoreAPI.Tests\RecordStoreAPI.Tests.csproj", "{875BBC50-A846-453E-B2F3-DA48BF6F45D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A5773A57-F36F-4552-994E-948C3374D38A}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordShopAPI.Tests", "RecordShopAPI.Tests\RecordShopAPI.Tests.csproj", "{875BBC50-A846-453E-B2F3-DA48BF6F45D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
