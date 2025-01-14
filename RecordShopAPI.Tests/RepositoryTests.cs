@@ -30,8 +30,9 @@ public class RepositoryTests
         _testDbContext.Dispose();
     }
 
+    #region GetAllRecords method tests
     [Test]
-    public void GetAllRecords_ReturnsListOfRecords()
+    public void GetAllRecords_ReturnsListOfRecordsType()
     {
         // Arrange
         var expectedRecord = new Record { Id = 1, Album = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
@@ -69,4 +70,61 @@ public class RepositoryTests
         // Assert
         Assert.That(result, Is.EquivalentTo(expectedList));
     }
+    #endregion
+
+    #region AddNewRecord method tests
+    [Test]
+    public void AddNewRecord_ReturnsRecordType()
+    {
+        // Arrange
+        var inputRecord = new Record { Album = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+
+        var expected = new Record
+        {
+            Id = 1,
+            Album = inputRecord.Album,
+            Artist = inputRecord.Artist,
+            Composer = inputRecord.Composer,
+            Genre = inputRecord.Genre,
+            Year = inputRecord.Year
+        };
+
+        // Act
+        var result = recordsRepository.AddNewRecord(inputRecord);
+
+        // Assert
+        Assert.That(result, Is.TypeOf<Record>());
+    }
+
+    [Test]
+    public void AddNewRecord_ReturnsRecordWithId()
+    {
+        // Arrange
+        var inputRecord = new Record { Album = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+
+        var expected = new Record
+        {
+            Id = 1,
+            Album = inputRecord.Album,
+            Artist = inputRecord.Artist,
+            Composer = inputRecord.Composer,
+            Genre = inputRecord.Genre,
+            Year = inputRecord.Year
+        };
+
+        // Act
+        var result = recordsRepository.AddNewRecord(inputRecord);
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Id, Is.EqualTo(expected.Id));
+            Assert.That(result.Album, Is.EqualTo(expected.Album));
+            Assert.That(result.Artist, Is.EqualTo(expected.Artist));
+            Assert.That(result.Composer, Is.EqualTo(expected.Composer));
+            Assert.That(result.Genre, Is.EqualTo(expected.Genre));
+            Assert.That(result.Year, Is.EqualTo(expected.Year));
+        });
+    }
+    #endregion
 }

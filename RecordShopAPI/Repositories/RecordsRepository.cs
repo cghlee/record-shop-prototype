@@ -6,6 +6,7 @@ namespace RecordShopAPI.Repositories;
 public interface IRecordsRepository
 {
     List<Record> GetAllRecords();
+    Record AddNewRecord(Record newRecord);
 }
 
 public class RecordsRepository : IRecordsRepository
@@ -20,5 +21,12 @@ public class RecordsRepository : IRecordsRepository
     {
         List<Record> allRecords = _recordsDbContext.Records.ToList();
         return allRecords;
+    }
+
+    public Record AddNewRecord(Record newRecord)
+    {
+        _recordsDbContext.Records.Add(newRecord);
+        _recordsDbContext.SaveChanges();
+        return newRecord;
     }
 }

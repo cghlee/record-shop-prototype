@@ -20,4 +20,14 @@ public class RecordsController : ControllerBase
         List<Record> allRecords = _recordsService.GetAllRecords();
         return Ok(allRecords);
     }
+
+    [HttpPost]
+    public IActionResult AddNewRecord(Record newRecord)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        Record recordWithIdAdded = _recordsService.AddNewRecord(newRecord);
+        return Ok(recordWithIdAdded);
+    }
 }
