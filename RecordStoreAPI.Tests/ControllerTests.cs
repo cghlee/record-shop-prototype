@@ -178,6 +178,106 @@ public class ControllerTests
     }
     #endregion
 
+    #region GetAlbumsByYear method tests
+    [Test]
+    public void GetAlbumsByYear_OnValidYear_ReturnsOkObjectResult()
+    {
+        // Arrange
+        int inputYear = 2000;
+
+        List<Album> expectedServiceReturn = new List<Album>()
+        {
+            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 }
+        };
+
+        _mockService.Setup(mockService => mockService.FindAlbumsByYear(inputYear)).Returns(expectedServiceReturn);
+
+        // Act
+        var objectResult = albumsController.GetAlbumsByYear(inputYear);
+
+        // Assert
+        Assert.That(objectResult, Is.TypeOf<OkObjectResult>());
+    }
+
+    [Test]
+    public void GetAlbumsByYear_CallsServiceMethodOnce()
+    {
+        // Arrange
+        int inputYear = 2000;
+
+        List<Album> expectedServiceReturn = new List<Album>()
+        {
+            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 }
+        };
+
+        _mockService.Setup(mockService => mockService.FindAlbumsByYear(inputYear)).Returns(expectedServiceReturn);
+
+        // Act
+        albumsController.GetAlbumsByYear(inputYear);
+
+        // Assert
+        _mockService.Verify(mockService => mockService.FindAlbumsByYear(inputYear), Times.Once());
+    }
+
+    [Test]
+    public void GetAlbumsByYear_OnValidYear_ReturnsListOfAlbumsType()
+    {
+        // Arrange
+        int inputYear = 2000;
+
+        List<Album> expectedServiceReturn = new List<Album>()
+        {
+            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 }
+        };
+
+        _mockService.Setup(mockService => mockService.FindAlbumsByYear(inputYear)).Returns(expectedServiceReturn);
+
+        // Act
+        var objectResult = albumsController.GetAlbumsByYear(inputYear) as OkObjectResult;
+        var resultValue = objectResult!.Value as List<Album>;
+
+        // Assert
+        Assert.That(resultValue, Is.TypeOf<List<Album>>());
+    }
+
+    [Test]
+    public void GetAlbumsByYear_OnValidYear_ReturnsRetrievedAlbums()
+    {
+        // Arrange
+        int inputYear = 2000;
+
+        List<Album> expectedServiceReturn = new List<Album>()
+        {
+            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 }
+        };
+
+        _mockService.Setup(mockService => mockService.FindAlbumsByYear(inputYear)).Returns(expectedServiceReturn);
+
+        // Act
+        var objectResult = albumsController.GetAlbumsByYear(inputYear) as OkObjectResult;
+        var resultValue = objectResult!.Value as List<Album>;
+
+        // Assert
+        Assert.That(resultValue, Is.EquivalentTo(expectedServiceReturn));
+    }
+
+    [Test]
+    public void GetAlbumsByYear_OnInvalidYear_ReturnsBadRequestObjectResult()
+    {
+        // Arrange
+        int inputYear = int.MaxValue;
+
+        List<Album>? expectedServiceReturn = null;
+        _mockService.Setup(mockService => mockService.FindAlbumsByYear(inputYear)).Returns(expectedServiceReturn);
+
+        // Act
+        var objectResult = albumsController.GetAlbumsByYear(inputYear);
+        
+        // Assert
+        Assert.That(objectResult, Is.TypeOf<BadRequestObjectResult>());
+    }
+    #endregion
+
     #region PostNewAlbum method tests
     [Test]
     public void PostNewAlbum_OnValidInput_ReturnsOkObjectResult()

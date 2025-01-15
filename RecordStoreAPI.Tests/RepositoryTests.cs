@@ -119,6 +119,70 @@ public class RepositoryTests
     }
     #endregion
 
+    #region FindAlbumsByYear method tests
+    [Test]
+    public void FindAlbumsByYear_OnValidYear_ReturnsListOfAlbumsType()
+    {
+        // Arrange
+        int inputYear = 2001;
+
+        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        _testDbContext.Albums.Add(seedAlbum);
+        _testDbContext.SaveChanges();
+
+        // Act
+        var result = albumsRepository.FindAlbumsByYear(inputYear);
+
+        // Assert
+        Assert.That(result, Is.TypeOf<List<Album>>());
+    }
+
+    [Test]
+    public void FindAlbumsByYear_OnValidYear_ReturnsRetrievedAlbums()
+    {
+        // Arrange
+        int inputYear = 2001;
+
+        Album seedAlbum1 = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum2 = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum3 = new Album { Id = 3, Name = "Album3", Artist = "Artist3", Composer = "Composer3", Genre = Genre.Classical, Year = 2001 };
+
+        List<Album> seedAlbums = new List<Album>
+        { 
+            seedAlbum1,
+            seedAlbum2,
+            seedAlbum3
+        };
+
+        _testDbContext.Albums.AddRange(seedAlbums);
+        _testDbContext.SaveChanges();
+
+        // Act
+        var result = albumsRepository.FindAlbumsByYear(inputYear);
+
+        // Assert
+        Assert.That(result, Is.EquivalentTo(seedAlbums));
+    }
+
+    [Test]
+    public void FindAlbumsByYear_OnInvalidYear_ReturnsNull()
+    {
+        // Arrange
+        int inputYear = int.MaxValue;
+        List<Album>? expected = null;
+
+        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        _testDbContext.Albums.AddRange(seedAlbum);
+        _testDbContext.SaveChanges();
+
+        // Act
+        var result = albumsRepository.FindAlbumsByYear(inputYear);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+    #endregion
+
     #region AddNewAlbum method tests
     [Test]
     public void AddNewAlbum_ReturnsAlbumType()

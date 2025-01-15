@@ -139,6 +139,84 @@ public class ServiceTests
     }
     #endregion
 
+    #region FindAlbumsByYear method tests
+    [Test]
+    public void FindAlbumsByYear_OnValidYear_ReturnsListOfAlbumsType()
+    {
+        // Arrange
+        int inputYear = 2002;
+
+        List<Album> expectedRepositoryReturn = new List<Album>
+        {
+            new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 },
+        };
+
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumsByYear(inputYear)).Returns(expectedRepositoryReturn);
+
+        // Act
+        var result = albumsService.FindAlbumsByYear(inputYear);
+
+        // Assert
+        Assert.That(result, Is.TypeOf<List<Album>>());
+    }
+
+    [Test]
+    public void FindAlbumsByYear_CallsRepositoryMethodOnce()
+    {
+        // Arrange
+        int inputYear = 2002;
+
+        List<Album> expectedRepositoryReturn = new List<Album>
+        {
+            new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 },
+        };
+
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumsByYear(inputYear)).Returns(expectedRepositoryReturn);
+
+        // Act
+        albumsService.FindAlbumsByYear(inputYear);
+
+        // Assert
+        _mockRepository.Verify(mockRepository => mockRepository.FindAlbumsByYear(inputYear), Times.Once());
+    }
+
+    [Test]
+    public void FindAlbumsByYear_OnValidYear_ReturnsRetrievedAlbums()
+    {
+        // Arrange
+        int inputYear = 2002;
+
+        List<Album> expectedRepositoryReturn = new List<Album>
+        {
+            new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 },
+        };
+
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumsByYear(inputYear)).Returns(expectedRepositoryReturn);
+
+        // Act
+        var result = albumsService.FindAlbumsByYear(inputYear);
+
+        // Assert
+        Assert.That(result, Is.EquivalentTo(expectedRepositoryReturn));
+    }
+
+    [Test]
+    public void FindAlbumsByYear_OnInvalidYear_ReturnsNull()
+    {
+        // Arrange
+        int inputYear = int.MaxValue;
+
+        List<Album>? expectedRepositoryReturn = null;
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumsByYear(inputYear)).Returns(expectedRepositoryReturn);
+
+        // Act
+        var result = albumsService.FindAlbumsByYear(inputYear);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedRepositoryReturn));
+    }
+    #endregion
+
     #region AddNewAlbum method tests
     [Test]
     public void AddNewAlbum_ReturnsAlbumType()

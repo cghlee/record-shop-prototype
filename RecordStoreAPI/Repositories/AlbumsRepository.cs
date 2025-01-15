@@ -6,8 +6,9 @@ namespace RecordStoreAPI.Repositories;
 public interface IAlbumsRepository
 {
     List<Album> GetAllAlbums();
-    Album AddNewAlbum(Album newAlbum);
     Album? FindAlbumById(int id);
+    List<Album>? FindAlbumsByYear(int inputYear);
+    Album AddNewAlbum(Album newAlbum);
     Album? UpdateAlbumById(int id, Album albumToPut);
     Album? DeleteAlbumById(int id);
 }
@@ -30,6 +31,17 @@ public class AlbumsRepository : IAlbumsRepository
     {
         Album? foundAlbum = _albumsDbContext.Albums.FirstOrDefault(album => album.Id == id);
         return foundAlbum;
+    }
+
+    public List<Album>? FindAlbumsByYear(int inputYear)
+    {
+        List<Album> albumsFromYear = _albumsDbContext.Albums.Where(album => album.Year == inputYear)
+                                                            .ToList();
+
+        if (albumsFromYear.Count == 0)
+            return null;
+
+        return albumsFromYear;
     }
 
     public Album AddNewAlbum(Album newAlbum)

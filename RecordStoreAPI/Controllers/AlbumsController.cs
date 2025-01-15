@@ -28,9 +28,21 @@ public class AlbumsController : ControllerBase
         Album? foundAlbum = _albumsService.FindAlbumById(id);
 
         if (foundAlbum == null)
-            return BadRequest($"No album exists with an ID of {id}.");
+            return BadRequest($"No database album exists with an ID of {id}.");
 
         return Ok(foundAlbum);
+    }
+
+    [HttpGet]
+    [Route("Year")]
+    public IActionResult GetAlbumsByYear(int year)
+    {
+        List<Album>? albumsFromYear = _albumsService.FindAlbumsByYear(year);
+
+        if (albumsFromYear == null)
+            return BadRequest($"No database album was released in the Year {year}.");
+
+        return Ok(albumsFromYear);
     }
 
     [HttpPost]
@@ -53,7 +65,7 @@ public class AlbumsController : ControllerBase
         Album? updatedAlbum = _albumsService.UpdateAlbumById(id, albumToPut);
 
         if (updatedAlbum == null)
-            return BadRequest($"No album exists with an ID of {id}.");
+            return BadRequest($"No database album exists with an ID of {id}.");
 
         return Ok(updatedAlbum);
     }
@@ -65,7 +77,7 @@ public class AlbumsController : ControllerBase
         Album? deletedAlbum = _albumsService.DeleteAlbumById(id);
 
         if (deletedAlbum == null)
-            return BadRequest($"No album exists with an ID of {id}.");
+            return BadRequest($"No database album exists with an ID of {id}.");
 
         return NoContent();
     }

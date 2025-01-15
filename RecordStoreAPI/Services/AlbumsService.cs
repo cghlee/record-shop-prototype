@@ -5,9 +5,10 @@ namespace RecordStoreAPI.Services;
 
 public interface IAlbumsService
 {
-    Album AddNewAlbum(Album newAlbum);
-    Album? FindAlbumById(int id);
     List<Album> GetAllAlbums();
+    Album? FindAlbumById(int id);
+    List<Album>? FindAlbumsByYear(int year);
+    Album AddNewAlbum(Album newAlbum);
     Album? UpdateAlbumById(int id, Album albumToPut);
     Album? DeleteAlbumById(int id);
 }
@@ -30,6 +31,12 @@ public class AlbumsService : IAlbumsService
     {
         Album? foundAlbum = _albumsRepository.FindAlbumById(id);
         return foundAlbum;
+    }
+
+    public List<Album>? FindAlbumsByYear(int year)
+    {
+        List<Album>? albumsFromYear = _albumsRepository.FindAlbumsByYear(year);
+        return albumsFromYear;
     }
 
     public Album AddNewAlbum(Album newAlbum)
