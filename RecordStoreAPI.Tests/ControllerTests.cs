@@ -348,4 +348,54 @@ public class ControllerTests
         Assert.That(objectResult, Is.TypeOf<BadRequestObjectResult>());
     }
     #endregion
+
+    #region DeleteAlbumById method tests
+    [Test]
+    public void DeleteAlbumById_OnValidId_ReturnsNoContentResult()
+    {
+        // Arrange
+        var inputId = 2;
+
+        var expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        _mockService.Setup(mockService => mockService.DeleteAlbumById(inputId)).Returns(expectedServiceReturn);
+
+        // Act
+        var objectResult = albumsController.DeleteAlbumById(inputId);
+
+        // Assert
+        Assert.That(objectResult, Is.TypeOf<NoContentResult>());
+    }
+
+    [Test]
+    public void DeleteAlbumById_CallsServiceMethodOnce()
+    {
+        // Arrange
+        var inputId = 2;
+
+        var expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        _mockService.Setup(mockService => mockService.DeleteAlbumById(inputId)).Returns(expectedServiceReturn);
+
+        // Act
+        albumsController.DeleteAlbumById(inputId);
+
+        // Assert
+        _mockService.Verify(mockService => mockService.DeleteAlbumById(inputId), Times.Once());
+    }
+
+    [Test]
+    public void DeleteAlbumById_OnInvalidId_ReturnsBadRequestObjectResult()
+    {
+        // Arrange
+        var inputId = int.MaxValue;
+
+        Album? expectedServiceReturn = null;
+        _mockService.Setup(mockService => mockService.DeleteAlbumById(inputId)).Returns(expectedServiceReturn);
+
+        // Act
+        var result = albumsController.DeleteAlbumById(inputId);
+
+        // Assert
+        Assert.That(result, Is.TypeOf<BadRequestObjectResult>());
+    }
+    #endregion
 }

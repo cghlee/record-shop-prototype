@@ -222,7 +222,7 @@ public class RepositoryTests
         var expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
 
         // Act
-        var result = albumsRepository.UpdateAlbumById(inputId, inputAlbum);
+        var result = albumsRepository.UpdateAlbumById(inputId, inputAlbum)!;
 
         // Assert
         Assert.Multiple(() =>
@@ -234,6 +234,78 @@ public class RepositoryTests
             Assert.That(result.Genre == expected.Genre);
             Assert.That(result.Year == expected.Year);
         });
+    }
+    #endregion
+
+    #region DeleteAlbumById method tests
+    [Test]
+    public void DeleteAlbumById_OnValidId_ReturnsAlbumType()
+    {
+        // Arrange
+        int inputId = 1;
+
+        var expectedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        _testDbContext.Albums.Add(expectedAlbum);
+        _testDbContext.SaveChanges();
+
+        // Act
+        var result = albumsRepository.DeleteAlbumById(inputId);
+
+        // Assert
+        Assert.That(result, Is.TypeOf<Album>());
+    }
+
+    [Test]
+    public void DeleteAlbumById_OnValidId_ReturnsRetrievedAlbum()
+    {
+        // Arrange
+        int inputId = 1;
+
+        var expectedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        _testDbContext.Albums.Add(expectedAlbum);
+        _testDbContext.SaveChanges();
+
+        // Act
+        var result = albumsRepository.DeleteAlbumById(inputId);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedAlbum));
+    }
+
+    [Test]
+    public void DeleteAlbumById_OnInvalidId_ReturnsNull()
+    {
+        // Arrange
+        int inputId = int.MaxValue;
+        Album? expected = null;
+
+        var seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        _testDbContext.Albums.Add(seedAlbum);
+        _testDbContext.SaveChanges();
+
+        // Act
+        var result = albumsRepository.DeleteAlbumById(inputId);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void DeleteAlbumById_OnValidId_DeletesAlbumFromDatabase()
+    {
+        // Arrange
+        int inputId = 1;
+
+        var expectedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        _testDbContext.Albums.Add(expectedAlbum);
+        _testDbContext.SaveChanges();
+
+        // Act
+        albumsRepository.DeleteAlbumById(inputId);
+
+        // Assert
+        var result = _testDbContext.Albums.Find(inputId);
+        Assert.That(result, Is.Null);
     }
     #endregion
 }

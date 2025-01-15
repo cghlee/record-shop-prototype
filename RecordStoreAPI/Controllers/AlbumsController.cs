@@ -44,6 +44,7 @@ public class AlbumsController : ControllerBase
     }
 
     [HttpPut]
+    [Route("{id}")]
     public IActionResult PutAlbumById(int id, Album albumToPut)
     {
         if (!ModelState.IsValid)
@@ -55,5 +56,17 @@ public class AlbumsController : ControllerBase
             return BadRequest($"No album exists with an ID of {id}.");
 
         return Ok(updatedAlbum);
+    }
+
+    [HttpDelete]
+    [Route("{id}")]
+    public IActionResult DeleteAlbumById(int id)
+    {
+        Album? deletedAlbum = _albumsService.DeleteAlbumById(id);
+
+        if (deletedAlbum == null)
+            return BadRequest($"No album exists with an ID of {id}.");
+
+        return NoContent();
     }
 }

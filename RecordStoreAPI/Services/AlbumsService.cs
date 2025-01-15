@@ -9,6 +9,7 @@ public interface IAlbumsService
     Album? FindAlbumById(int id);
     List<Album> GetAllAlbums();
     Album? UpdateAlbumById(int id, Album albumToPut);
+    Album? DeleteAlbumById(int id);
 }
 
 public class AlbumsService : IAlbumsService
@@ -41,5 +42,11 @@ public class AlbumsService : IAlbumsService
     {
         Album? updatedAlbum = _albumsRepository.UpdateAlbumById(id, albumToPut);
         return updatedAlbum;
+    }
+
+    public Album? DeleteAlbumById(int id)
+    {
+        Album? deletedAlbum = _albumsRepository.DeleteAlbumById(id);
+        return deletedAlbum;
     }
 }
