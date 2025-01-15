@@ -2,9 +2,9 @@
 
 public enum Genre
 {
-    Classical,
-    Opera,
-    Jazz,
-    Rock,
-    Pop,
+    Classical = 1,
+    Opera = 2,
+    Jazz = 3,
+    Rock = 4,
+    Pop = 5,
 }
