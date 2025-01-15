@@ -25,7 +25,7 @@ public class ControllerTests
         // Arrange
         List<Album> expectedResultValue = new List<Album>
         {
-            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 },
+            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 },
         };
 
         _mockService.Setup(mockService => mockService.GetAllAlbums()).Returns(expectedResultValue);
@@ -43,7 +43,7 @@ public class ControllerTests
         // Arrange
         List<Album> expectedResultValue = new List<Album>
         {
-            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 },
+            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 },
         };
 
         _mockService.Setup(mockService => mockService.GetAllAlbums()).Returns(expectedResultValue);
@@ -62,7 +62,7 @@ public class ControllerTests
         // Arrange
         List<Album> expectedResultValue = new List<Album>
         {
-            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 },
+            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 },
         };
 
         _mockService.Setup(mockService => mockService.GetAllAlbums()).Returns(expectedResultValue);
@@ -80,7 +80,7 @@ public class ControllerTests
         // Arrange
         List<Album> expectedResultValue = new List<Album>
         {
-            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 },
+            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 },
         };
 
         _mockService.Setup(mockService => mockService.GetAllAlbums()).Returns(expectedResultValue);
@@ -101,7 +101,7 @@ public class ControllerTests
         // Arrange
         int inputId = 2;
 
-        Album expectedServiceReturn = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
         _mockService.Setup(mockService => mockService.FindAlbumById(inputId)).Returns(expectedServiceReturn);
 
         // Act
@@ -117,7 +117,7 @@ public class ControllerTests
         // Arrange
         int inputId = 2;
 
-        Album expectedServiceReturn = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
         _mockService.Setup(mockService => mockService.FindAlbumById(inputId)).Returns(expectedServiceReturn);
 
         // Act
@@ -134,7 +134,7 @@ public class ControllerTests
         // Arrange
         int inputId = 2;
 
-        Album expectedServiceReturn = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
         _mockService.Setup(mockService => mockService.FindAlbumById(inputId)).Returns(expectedServiceReturn);
 
         // Act
@@ -150,7 +150,7 @@ public class ControllerTests
         // Arrange
         int inputId = 2;
 
-        Album expectedServiceReturn = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
         _mockService.Setup(mockService => mockService.FindAlbumById(inputId)).Returns(expectedServiceReturn);
 
         // Act
@@ -183,7 +183,7 @@ public class ControllerTests
     public void PostNewAlbum_OnValidInput_ReturnsOkObjectResult()
     {
         // Arrange
-        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
 
         Album expectedServiceReturn = new Album
         {
@@ -208,7 +208,7 @@ public class ControllerTests
     public void PostNewAlbum_OnValidInput_ReturnsAlbumWithId()
     {
         // Arrange
-        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
 
         Album expectedServiceReturn = new Album
         {
@@ -234,7 +234,7 @@ public class ControllerTests
     public void PostNewAlbum_OnInvalidInput_ReturnsBadRequestObjectResult()
     {
         // Arrange
-        Album input = new Album { Name = "Album1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        Album input = new Album { Name = "Album1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
         albumsController.ModelState.AddModelError("Artist", "The Artist field is required.");
 
         // Act
@@ -251,9 +251,9 @@ public class ControllerTests
     {
         // Arrange
         int inputId = 2;
-        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
 
-        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
         _mockService.Setup(mockService => mockService.UpdateAlbumById(inputId, inputAlbum)).Returns(expectedServiceReturn);
 
         // Act
@@ -268,9 +268,9 @@ public class ControllerTests
     {
         // Arrange
         int inputId = 2;
-        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
 
-        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
         _mockService.Setup(mockService => mockService.UpdateAlbumById(inputId, inputAlbum)).Returns(expectedServiceReturn);
 
         // Act
@@ -286,9 +286,9 @@ public class ControllerTests
     {
         // Arrange
         int inputId = 2;
-        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
 
-        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
         _mockService.Setup(mockService => mockService.UpdateAlbumById(inputId, inputAlbum)).Returns(expectedServiceReturn);
 
         // Act
@@ -303,9 +303,9 @@ public class ControllerTests
     {
         // Arrange
         int inputId = 2;
-        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
 
-        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
         _mockService.Setup(mockService => mockService.UpdateAlbumById(inputId, inputAlbum)).Returns(expectedServiceReturn);
 
         // Act
@@ -321,7 +321,7 @@ public class ControllerTests
     {
         // Arrange
         int inputId = 1;
-        Album inputAlbum = new Album { Name = "Album1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        Album inputAlbum = new Album { Name = "Album1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
         albumsController.ModelState.AddModelError("Artist", "The Artist field is required.");
 
         // Act
@@ -336,7 +336,7 @@ public class ControllerTests
     {
         // Arrange
         int inputId = int.MaxValue;
-        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
 
         Album? expectedServiceReturn = null;
         _mockService.Setup(mockService => mockService.UpdateAlbumById(inputId, inputAlbum)).Returns(expectedServiceReturn);
@@ -356,7 +356,7 @@ public class ControllerTests
         // Arrange
         int inputId = 2;
 
-        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
         _mockService.Setup(mockService => mockService.DeleteAlbumById(inputId)).Returns(expectedServiceReturn);
 
         // Act
@@ -372,7 +372,7 @@ public class ControllerTests
         // Arrange
         int inputId = 2;
 
-        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
         _mockService.Setup(mockService => mockService.DeleteAlbumById(inputId)).Returns(expectedServiceReturn);
 
         // Act

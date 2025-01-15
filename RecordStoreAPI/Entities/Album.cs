@@ -16,7 +16,7 @@ public class Album
     public string Composer { get; set; } = "";
 
     [Required]
-    public string Genre { get; set; } = "";
+    public Genre Genre { get; set; }
 
     [Required]
     public int Year { get; set; }
