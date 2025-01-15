@@ -21,7 +21,7 @@ public class Program
         if (builder.Environment.IsDevelopment())
         {
             builder.Services.AddDbContext<AlbumsDbContext>(options =>
-                options.UseInMemoryDatabase("TestDb"));
+                options.UseInMemoryDatabase("TestInMemoryDb"));
         }
         else
         {
