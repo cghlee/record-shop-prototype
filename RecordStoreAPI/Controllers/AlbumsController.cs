@@ -42,4 +42,18 @@ public class AlbumsController : ControllerBase
         Album albumWithIdAdded = _albumsService.AddNewAlbum(newAlbum);
         return Ok(albumWithIdAdded);
     }
+
+    [HttpPut]
+    public IActionResult PutAlbumById(int id, Album albumToPut)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        Album? updatedAlbum = _albumsService.UpdateAlbumById(id, albumToPut);
+
+        if (updatedAlbum == null)
+            return BadRequest($"No album exists with an ID of {id}.");
+
+        return Ok(updatedAlbum);
+    }
 }

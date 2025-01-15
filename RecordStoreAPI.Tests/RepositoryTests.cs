@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Moq;
 using RecordStoreAPI.Classes;
 using RecordStoreAPI.DbContexts;
 using RecordStoreAPI.Repositories;
@@ -164,6 +163,76 @@ public class RepositoryTests
             Assert.That(result.Composer, Is.EqualTo(expected.Composer));
             Assert.That(result.Genre, Is.EqualTo(expected.Genre));
             Assert.That(result.Year, Is.EqualTo(expected.Year));
+        });
+    }
+    #endregion
+
+    #region UpdateAlbumById method tests
+    [Test]
+    public void UpdateAlbumById_OnValidInputs_ReturnsAlbumType()
+    {
+        // Arrange
+        var originalAlbum = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        _testDbContext.Albums.Add(originalAlbum);
+        _testDbContext.SaveChanges();
+
+        var inputId = 2;
+        var inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+
+        var expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+
+        // Act
+        var result = albumsRepository.UpdateAlbumById(inputId, inputAlbum);
+
+        // Assert
+        Assert.That(result, Is.TypeOf<Album>());
+    }
+
+    [Test]
+    public void UpdateAlbumById_OnInvalidId_ReturnsNull()
+    {
+        // Arrange
+        var originalAlbum = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        _testDbContext.Albums.Add(originalAlbum);
+        _testDbContext.SaveChanges();
+
+        var inputId = int.MaxValue;
+        var inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+
+        Album? expected = null;
+
+        // Act
+        var result = albumsRepository.UpdateAlbumById(inputId, inputAlbum);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void UpdateAlbumById_OnValidInputs_ReturnsUpdatedAlbum()
+    {
+        // Arrange
+        var originalAlbum = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        _testDbContext.Albums.Add(originalAlbum);
+        _testDbContext.SaveChanges();
+
+        var inputId = 2;
+        var inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+
+        var expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+
+        // Act
+        var result = albumsRepository.UpdateAlbumById(inputId, inputAlbum);
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Id == expected.Id);
+            Assert.That(result.Name == expected.Name);
+            Assert.That(result.Artist == expected.Artist);
+            Assert.That(result.Composer == expected.Composer);
+            Assert.That(result.Genre == expected.Genre);
+            Assert.That(result.Year == expected.Year);
         });
     }
     #endregion

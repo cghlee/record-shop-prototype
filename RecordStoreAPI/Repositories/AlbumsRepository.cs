@@ -8,6 +8,7 @@ public interface IAlbumsRepository
     List<Album> GetAllAlbums();
     Album AddNewAlbum(Album newAlbum);
     Album? FindAlbumById(int id);
+    Album? UpdateAlbumById(int id, Album albumToPut);
 }
 
 public class AlbumsRepository : IAlbumsRepository
@@ -35,5 +36,22 @@ public class AlbumsRepository : IAlbumsRepository
         _albumsDbContext.Albums.Add(newAlbum);
         _albumsDbContext.SaveChanges();
         return newAlbum;
+    }
+
+    public Album? UpdateAlbumById(int id, Album albumToPut)
+    {
+        Album? foundAlbum = FindAlbumById(id);
+
+        if (foundAlbum == null)
+            return foundAlbum;
+
+        foundAlbum.Name = albumToPut.Name;
+        foundAlbum.Artist = albumToPut.Artist;
+        foundAlbum.Composer = albumToPut.Composer;
+        foundAlbum.Genre = albumToPut.Genre;
+        foundAlbum.Year = albumToPut.Year;
+        _albumsDbContext.SaveChanges();
+
+        return foundAlbum;
     }
 }

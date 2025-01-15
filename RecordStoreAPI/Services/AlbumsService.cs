@@ -8,6 +8,7 @@ public interface IAlbumsService
     Album AddNewAlbum(Album newAlbum);
     Album? FindAlbumById(int id);
     List<Album> GetAllAlbums();
+    Album? UpdateAlbumById(int id, Album albumToPut);
 }
 
 public class AlbumsService : IAlbumsService
@@ -34,5 +35,11 @@ public class AlbumsService : IAlbumsService
     {
         Album albumWithIdAdded = _albumsRepository.AddNewAlbum(newAlbum);
         return albumWithIdAdded;
+    }
+
+    public Album? UpdateAlbumById(int id, Album albumToPut)
+    {
+        Album? updatedAlbum = _albumsRepository.UpdateAlbumById(id, albumToPut);
+        return updatedAlbum;
     }
 }
