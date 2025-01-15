@@ -22,12 +22,12 @@ public class ServiceTests
     public void GetAllAlbums_ReturnsListOfAlbumsType()
     {
         // Arrange
-        var expected = new List<Album>
+        List<Album> expectedRepositoryReturn = new List<Album>
         {
             new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 },
         };
 
-        _mockRepository.Setup(mockRepository => mockRepository.GetAllAlbums()).Returns(expected);
+        _mockRepository.Setup(mockRepository => mockRepository.GetAllAlbums()).Returns(expectedRepositoryReturn);
 
         // Act
         var result = albumsService.GetAllAlbums();
@@ -40,12 +40,12 @@ public class ServiceTests
     public void GetAllAlbums_CallsRepositoryMethodOnce()
     {
         // Arrange
-        var expected = new List<Album>
+        List<Album> expectedRepositoryReturn = new List<Album>
         {
             new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 },
         };
 
-        _mockRepository.Setup(mockRepository => mockRepository.GetAllAlbums()).Returns(expected);
+        _mockRepository.Setup(mockRepository => mockRepository.GetAllAlbums()).Returns(expectedRepositoryReturn);
 
         // Act
         albumsService.GetAllAlbums();
@@ -58,18 +58,18 @@ public class ServiceTests
     public void GetAllAlbums_ReturnsRetrievedAlbums()
     {
         // Arrange
-        var expected = new List<Album>
+        List<Album> expectedRepositoryReturn = new List<Album>
         {
             new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 },
         };
 
-        _mockRepository.Setup(mockRepository => mockRepository.GetAllAlbums()).Returns(expected);
+        _mockRepository.Setup(mockRepository => mockRepository.GetAllAlbums()).Returns(expectedRepositoryReturn);
 
         // Act
         var result = albumsService.GetAllAlbums();
 
         // Assert
-        Assert.That(result, Is.EquivalentTo(expected));
+        Assert.That(result, Is.EquivalentTo(expectedRepositoryReturn));
     }
     #endregion
 
@@ -78,12 +78,13 @@ public class ServiceTests
     public void FindAlbumById_OnValidId_ReturnsAlbumType()
     {
         // Arrange
-        var expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        int inputId = 2;
 
-        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumById(2)).Returns(expected);
+        Album expectedRepositoryReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumById(inputId)).Returns(expectedRepositoryReturn);
 
         // Act
-        var result = albumsService.FindAlbumById(2);
+        var result = albumsService.FindAlbumById(inputId);
 
         // Assert
         Assert.That(result, Is.TypeOf<Album>());
@@ -93,45 +94,48 @@ public class ServiceTests
     public void FindAlbumById_CallsRepositoryMethodOnce()
     {
         // Arrange
-        var expected = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        int inputId = 2;
 
-        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumById(2)).Returns(expected);
+        Album expectedRepositoryReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumById(inputId)).Returns(expectedRepositoryReturn);
 
         // Act
-        albumsService.FindAlbumById(2);
+        albumsService.FindAlbumById(inputId);
 
         // Assert
-        _mockRepository.Verify(mockRepository => mockRepository.FindAlbumById(2), Times.Once());
+        _mockRepository.Verify(mockRepository => mockRepository.FindAlbumById(inputId), Times.Once());
     }
 
     [Test]
     public void FindAlbumById_OnValidId_ReturnsRetrievedAlbum()
     {
         // Arrange
-        var expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        int inputId = 2;
 
-        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumById(2)).Returns(expected);
+        Album expectedRepositoryReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumById(inputId)).Returns(expectedRepositoryReturn);
 
         // Act
-        var result = albumsService.FindAlbumById(2);
+        var result = albumsService.FindAlbumById(inputId);
 
         // Assert
-        Assert.That(result, Is.EqualTo(expected));
+        Assert.That(result, Is.EqualTo(expectedRepositoryReturn));
     }
 
     [Test]
     public void FindAlbumById_OnInvalidId_ReturnsNull()
     {
         // Arrange
-        Album? expected = null;
+        int inputId = int.MaxValue;
 
-        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumById(int.MaxValue)).Returns(expected);
+        Album? expectedRepositoryReturn = null;
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumById(inputId)).Returns(expectedRepositoryReturn);
 
         // Act
-        var result = albumsService.FindAlbumById(int.MaxValue);
+        var result = albumsService.FindAlbumById(inputId);
 
         // Assert
-        Assert.That(result, Is.EqualTo(expected));
+        Assert.That(result, Is.EqualTo(expectedRepositoryReturn));
     }
     #endregion
 
@@ -140,9 +144,9 @@ public class ServiceTests
     public void AddNewAlbum_ReturnsAlbumType()
     {
         // Arrange
-        var inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
 
-        var expected = new Album
+        Album expectedRepositoryReturn = new Album
         {
             Id = 1,
             Name = inputAlbum.Name,
@@ -152,7 +156,7 @@ public class ServiceTests
             Year = inputAlbum.Year
         };
 
-        _mockRepository.Setup(mockRepository => mockRepository.AddNewAlbum(inputAlbum)).Returns(expected);
+        _mockRepository.Setup(mockRepository => mockRepository.AddNewAlbum(inputAlbum)).Returns(expectedRepositoryReturn);
 
         // Act
         var result = albumsService.AddNewAlbum(inputAlbum);
@@ -165,9 +169,9 @@ public class ServiceTests
     public void AddNewAlbum_CallsRespositoryMethodOnce()
     {
         // Arrange
-        var inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
 
-        var expected = new Album
+        Album expectedRepositoryReturn = new Album
         {
             Id = 1,
             Name = inputAlbum.Name,
@@ -177,7 +181,7 @@ public class ServiceTests
             Year = inputAlbum.Year
         };
 
-        _mockRepository.Setup(mockRepository => mockRepository.AddNewAlbum(inputAlbum)).Returns(expected);
+        _mockRepository.Setup(mockRepository => mockRepository.AddNewAlbum(inputAlbum)).Returns(expectedRepositoryReturn);
 
         // Act
         albumsService.AddNewAlbum(inputAlbum);
@@ -190,9 +194,9 @@ public class ServiceTests
     public void AddNewAlbum_ReturnsAlbumWithId()
     {
         // Arrange
-        var inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
 
-        var expected = new Album
+        Album expectedRepositoryReturn = new Album
         {
             Id = 1,
             Name = inputAlbum.Name,
@@ -202,13 +206,13 @@ public class ServiceTests
             Year = inputAlbum.Year
         };
 
-        _mockRepository.Setup(mockRepository => mockRepository.AddNewAlbum(inputAlbum)).Returns(expected);
+        _mockRepository.Setup(mockRepository => mockRepository.AddNewAlbum(inputAlbum)).Returns(expectedRepositoryReturn);
 
         // Act
         var result = albumsService.AddNewAlbum(inputAlbum);
 
         // Assert
-        Assert.That(result, Is.EqualTo(expected));
+        Assert.That(result, Is.EqualTo(expectedRepositoryReturn));
     }
     #endregion
 
@@ -217,12 +221,11 @@ public class ServiceTests
     public void UpdateAlbumById_OnValidInputs_ReturnsAlbumType()
     {
         // Arrange
-        var inputId = 2;
-        var inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        int inputId = 2;
+        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
 
-        var expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
-
-        _mockRepository.Setup(mockRepository => mockRepository.UpdateAlbumById(inputId, inputAlbum)).Returns(expected);
+        Album expectedRepositoryReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        _mockRepository.Setup(mockRepository => mockRepository.UpdateAlbumById(inputId, inputAlbum)).Returns(expectedRepositoryReturn);
 
         // Act
         var result = albumsService.UpdateAlbumById(inputId, inputAlbum);
@@ -235,10 +238,11 @@ public class ServiceTests
     public void UpdateAlbumById_CallsRepositoryMethodOnce()
     {
         // Arrange
-        var inputId = 2;
-        var inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        int inputId = 2;
+        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
 
-        var expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        Album expectedRepositoryReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        _mockRepository.Setup(mockRepository => mockRepository.UpdateAlbumById(inputId, inputAlbum)).Returns(expectedRepositoryReturn);
 
         // Act
         albumsService.UpdateAlbumById(inputId, inputAlbum);
@@ -251,36 +255,34 @@ public class ServiceTests
     public void UpdateAlbumById_OnValidInputs_ReturnsRetrievedAlbum()
     {
         // Arrange
-        var inputId = 2;
-        var inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        int inputId = 2;
+        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
 
-        var expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
-
-        _mockRepository.Setup(mockRepository => mockRepository.UpdateAlbumById(inputId, inputAlbum)).Returns(expected);
+        Album expectedRepositoryReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        _mockRepository.Setup(mockRepository => mockRepository.UpdateAlbumById(inputId, inputAlbum)).Returns(expectedRepositoryReturn);
 
         // Act
         var result = albumsService.UpdateAlbumById(inputId, inputAlbum);
 
         // Assert
-        Assert.That(result, Is.EqualTo(expected));
+        Assert.That(result, Is.EqualTo(expectedRepositoryReturn));
     }
 
     [Test]
     public void UpdateAlbumById_OnInvalidId_ReturnsNull()
     {
         // Arrange
-        var inputId = int.MaxValue;
-        var inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        int inputId = int.MaxValue;
+        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
 
-        Album? expected = null;
-
-        _mockRepository.Setup(mockRepository => mockRepository.UpdateAlbumById(inputId, inputAlbum)).Returns(expected);
+        Album? expectedRepositoryReturn = null;
+        _mockRepository.Setup(mockRepository => mockRepository.UpdateAlbumById(inputId, inputAlbum)).Returns(expectedRepositoryReturn);
 
         // Act
         var result = albumsService.UpdateAlbumById(inputId, inputAlbum);
 
         // Assert
-        Assert.That(result, Is.EqualTo(expected));
+        Assert.That(result, Is.EqualTo(expectedRepositoryReturn));
     }
     #endregion
 
@@ -289,9 +291,9 @@ public class ServiceTests
     public void DeleteAlbumById_OnValidId_ReturnsAlbumType()
     {
         // Arrange
-        var inputId = 2;
-        var expectedRepositoryReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        int inputId = 2;
 
+        Album expectedRepositoryReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
         _mockRepository.Setup(mockRepository => mockRepository.DeleteAlbumById(inputId)).Returns(expectedRepositoryReturn);
 
         // Act
@@ -305,9 +307,9 @@ public class ServiceTests
     public void DeleteAlbumById_CallsRepositoryMethodOnce()
     {
         // Arrange
-        var inputId = 2;
-        var expectedRepositoryReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        int inputId = 2;
 
+        Album expectedRepositoryReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
         _mockRepository.Setup(mockRepository => mockRepository.DeleteAlbumById(inputId)).Returns(expectedRepositoryReturn);
 
         // Act
@@ -321,9 +323,9 @@ public class ServiceTests
     public void DeleteAlbumById_OnValidId_ReturnsRetrievedAlbum()
     {
         // Arrange
-        var inputId = 2;
-        var expectedRepositoryReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        int inputId = 2;
 
+        Album expectedRepositoryReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
         _mockRepository.Setup(mockRepository => mockRepository.DeleteAlbumById(inputId)).Returns(expectedRepositoryReturn);
 
         // Act
@@ -337,16 +339,16 @@ public class ServiceTests
     public void DeleteAlbumById_OnInvalidId_ReturnsNull()
     {
         // Arrange
-        var inputId = int.MaxValue;
-        Album? expectedRepositoryReturn = null;
+        int inputId = int.MaxValue;
 
+        Album? expectedRepositoryReturn = null;
         _mockRepository.Setup(mockRepository => mockRepository.DeleteAlbumById(inputId)).Returns(expectedRepositoryReturn);
 
         // Act
         var result = albumsService.DeleteAlbumById(inputId);
 
         // Assert
-        Assert.That(result, Is.Null);
+        Assert.That(result, Is.EqualTo(expectedRepositoryReturn));
     }
     #endregion
 }

@@ -23,12 +23,12 @@ public class ControllerTests
     public void GetAllAlbums_ReturnsOkObjectResult()
     {
         // Arrange
-        var expected = new List<Album>
+        List<Album> expectedResultValue = new List<Album>
         {
             new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 },
         };
 
-        _mockService.Setup(mockService => mockService.GetAllAlbums()).Returns(expected);
+        _mockService.Setup(mockService => mockService.GetAllAlbums()).Returns(expectedResultValue);
 
         // Act
         var objectResult = albumsController.GetAllAlbums();
@@ -41,31 +41,31 @@ public class ControllerTests
     public void GetAllAlbums_ReturnsListOfAlbumsType()
     {
         // Arrange
-        var expected = new List<Album>
+        List<Album> expectedResultValue = new List<Album>
         {
             new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 },
         };
 
-        _mockService.Setup(mockService => mockService.GetAllAlbums()).Returns(expected);
+        _mockService.Setup(mockService => mockService.GetAllAlbums()).Returns(expectedResultValue);
 
         // Act
         var objectResult = albumsController.GetAllAlbums() as OkObjectResult;
-        var result = objectResult!.Value as List<Album>;
+        var resultValue = objectResult!.Value as List<Album>;
 
         // Assert
-        Assert.That(result, Is.TypeOf<List<Album>>());
+        Assert.That(resultValue, Is.TypeOf<List<Album>>());
     }
 
     [Test]
     public void GetAllAlbums_CallsServiceMethodOnce()
     {
         // Arrange
-        var expected = new List<Album>
+        List<Album> expectedResultValue = new List<Album>
         {
             new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 },
         };
 
-        _mockService.Setup(mockService => mockService.GetAllAlbums()).Returns(expected);
+        _mockService.Setup(mockService => mockService.GetAllAlbums()).Returns(expectedResultValue);
 
         // Act
         albumsController.GetAllAlbums();
@@ -78,19 +78,19 @@ public class ControllerTests
     public void GetAllAlbums_ReturnsRetrievedAlbums()
     {
         // Arrange
-        var expected = new List<Album>
+        List<Album> expectedResultValue = new List<Album>
         {
             new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 },
         };
 
-        _mockService.Setup(mockService => mockService.GetAllAlbums()).Returns(expected);
+        _mockService.Setup(mockService => mockService.GetAllAlbums()).Returns(expectedResultValue);
 
         // Act
         var objectResult = albumsController.GetAllAlbums() as OkObjectResult;
-        var result = objectResult!.Value as List<Album>;
+        var resultValue = objectResult!.Value as List<Album>;
 
         // Assert
-        Assert.That(result, Is.EquivalentTo(expected));
+        Assert.That(resultValue, Is.EquivalentTo(expectedResultValue));
     }
     #endregion
 
@@ -99,12 +99,13 @@ public class ControllerTests
     public void GetAlbumById_OnValidId_ReturnsOkObjectResult()
     {
         // Arrange
-        var expected = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        int inputId = 2;
 
-        _mockService.Setup(mockService => mockService.FindAlbumById(2)).Returns(expected);
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        _mockService.Setup(mockService => mockService.FindAlbumById(inputId)).Returns(expectedServiceReturn);
 
         // Act
-        var objectResult = albumsController.GetAlbumById(2);
+        var objectResult = albumsController.GetAlbumById(inputId);
 
         // Assert
         Assert.That(objectResult, Is.TypeOf<OkObjectResult>());
@@ -114,59 +115,63 @@ public class ControllerTests
     public void GetAlbumById_OnValidId_ReturnsAlbumType()
     {
         // Arrange
-        var expected = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        int inputId = 2;
 
-        _mockService.Setup(mockService => mockService.FindAlbumById(2)).Returns(expected);
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        _mockService.Setup(mockService => mockService.FindAlbumById(inputId)).Returns(expectedServiceReturn);
 
         // Act
-        var objectResult = albumsController.GetAlbumById(2) as OkObjectResult;
-        var result = objectResult!.Value as Album;
+        var objectResult = albumsController.GetAlbumById(inputId) as OkObjectResult;
+        var resultValue = objectResult!.Value as Album;
 
         // Assert
-        Assert.That(result, Is.TypeOf<Album>());
+        Assert.That(resultValue, Is.TypeOf<Album>());
     }
 
     [Test]
     public void GetAlbumById_CallsServiceMethodOnce()
     {
         // Arrange
-        var expected = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        int inputId = 2;
 
-        _mockService.Setup(mockService => mockService.FindAlbumById(2)).Returns(expected);
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        _mockService.Setup(mockService => mockService.FindAlbumById(inputId)).Returns(expectedServiceReturn);
 
         // Act
-        albumsController.GetAlbumById(2);
+        albumsController.GetAlbumById(inputId);
 
         // Assert
-        _mockService.Verify(mockService => mockService.FindAlbumById(2), Times.Once());
+        _mockService.Verify(mockService => mockService.FindAlbumById(inputId), Times.Once());
     }
 
     [Test]
     public void GetAlbumById_OnValidId_ReturnsRetrievedAlbum()
     {
         // Arrange
-        var expected = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        int inputId = 2;
 
-        _mockService.Setup(mockService => mockService.FindAlbumById(2)).Returns(expected);
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        _mockService.Setup(mockService => mockService.FindAlbumById(inputId)).Returns(expectedServiceReturn);
 
         // Act
-        var objectResult = albumsController.GetAlbumById(2) as OkObjectResult;
-        var result = objectResult!.Value as Album;
+        var objectResult = albumsController.GetAlbumById(inputId) as OkObjectResult;
+        var resultValue = objectResult!.Value as Album;
 
         // Assert
-        Assert.That(result, Is.EqualTo(expected));
+        Assert.That(resultValue, Is.EqualTo(expectedServiceReturn));
     }
 
     [Test]
     public void GetAlbumById_OnInvalidId_ReturnsBadRequestObjectResult()
     {
         // Arrange
-        Album? expected = null;
+        int inputId = int.MaxValue;
 
-        _mockService.Setup(mockService => mockService.FindAlbumById(int.MaxValue)).Returns(expected);
+        Album? expectedServiceReturn = null;
+        _mockService.Setup(mockService => mockService.FindAlbumById(inputId)).Returns(expectedServiceReturn);
 
         // Act
-        var objectResult = albumsController.GetAlbumById(int.MaxValue);
+        var objectResult = albumsController.GetAlbumById(inputId);
 
         // Assert
         Assert.That(objectResult, Is.TypeOf<BadRequestObjectResult>());
@@ -178,9 +183,9 @@ public class ControllerTests
     public void PostNewAlbum_OnValidInput_ReturnsOkObjectResult()
     {
         // Arrange
-        var inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
 
-        var expected = new Album
+        Album expectedServiceReturn = new Album
         {
             Id = 1,
             Name = inputAlbum.Name,
@@ -190,7 +195,7 @@ public class ControllerTests
             Year = inputAlbum.Year
         };
 
-        _mockService.Setup(mockService => mockService.AddNewAlbum(inputAlbum)).Returns(expected);
+        _mockService.Setup(mockService => mockService.AddNewAlbum(inputAlbum)).Returns(expectedServiceReturn);
 
         // Act
         var objectResult = albumsController.PostNewAlbum(inputAlbum);
@@ -203,9 +208,9 @@ public class ControllerTests
     public void PostNewAlbum_OnValidInput_ReturnsAlbumWithId()
     {
         // Arrange
-        var inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
 
-        var expected = new Album
+        Album expectedServiceReturn = new Album
         {
             Id = 1,
             Name = inputAlbum.Name,
@@ -215,21 +220,21 @@ public class ControllerTests
             Year = inputAlbum.Year
         };
 
-        _mockService.Setup(mockService => mockService.AddNewAlbum(inputAlbum)).Returns(expected);
+        _mockService.Setup(mockService => mockService.AddNewAlbum(inputAlbum)).Returns(expectedServiceReturn);
 
         // Act
         var objectResult = albumsController.PostNewAlbum(inputAlbum) as OkObjectResult;
-        var result = objectResult!.Value as Album;
+        var resultValue = objectResult!.Value as Album;
 
         // Assert
-        Assert.That(result, Is.EqualTo(expected));
+        Assert.That(resultValue, Is.EqualTo(expectedServiceReturn));
     }
 
     [Test]
     public void PostNewAlbum_OnInvalidInput_ReturnsBadRequestObjectResult()
     {
         // Arrange
-        var input = new Album { Name = "Album1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        Album input = new Album { Name = "Album1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
         albumsController.ModelState.AddModelError("Artist", "The Artist field is required.");
 
         // Act
@@ -245,12 +250,11 @@ public class ControllerTests
     public void PutAlbumById_OnValidInputs_ReturnsOkObjectResult()
     {
         // Arrange
-        var inputId = 2;
-        var inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        int inputId = 2;
+        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
 
-        var expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
-
-        _mockService.Setup(mockService => mockService.UpdateAlbumById(inputId, inputAlbum)).Returns(expected);
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        _mockService.Setup(mockService => mockService.UpdateAlbumById(inputId, inputAlbum)).Returns(expectedServiceReturn);
 
         // Act
         var objectResult = albumsController.PutAlbumById(inputId, inputAlbum);
@@ -263,31 +267,29 @@ public class ControllerTests
     public void PutAlbumById_OnValidInputs_ReturnsAlbumType()
     {
         // Arrange
-        var inputId = 2;
-        var inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        int inputId = 2;
+        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
 
-        var expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
-
-        _mockService.Setup(mockService => mockService.UpdateAlbumById(inputId, inputAlbum)).Returns(expected);
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        _mockService.Setup(mockService => mockService.UpdateAlbumById(inputId, inputAlbum)).Returns(expectedServiceReturn);
 
         // Act
         var objectResult = albumsController.PutAlbumById(inputId, inputAlbum) as OkObjectResult;
-        var result = objectResult!.Value as Album;
+        var resultValue = objectResult!.Value as Album;
 
         // Assert
-        Assert.That(result, Is.TypeOf<Album>());
+        Assert.That(resultValue, Is.TypeOf<Album>());
     }
 
     [Test]
     public void PutAlbumById_CallsServiceMethodOnce()
     {
         // Arrange
-        var inputId = 2;
-        var inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        int inputId = 2;
+        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
 
-        var expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
-
-        _mockService.Setup(mockService => mockService.UpdateAlbumById(inputId, inputAlbum)).Returns(expected);
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        _mockService.Setup(mockService => mockService.UpdateAlbumById(inputId, inputAlbum)).Returns(expectedServiceReturn);
 
         // Act
         albumsController.PutAlbumById(inputId, inputAlbum);
@@ -300,27 +302,26 @@ public class ControllerTests
     public void PutAlbumById_OnValidInputs_ReturnsRetrievedAlbum()
     {
         // Arrange
-        var inputId = 2;
-        var inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        int inputId = 2;
+        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
 
-        var expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
-
-        _mockService.Setup(mockService => mockService.UpdateAlbumById(inputId, inputAlbum)).Returns(expected);
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        _mockService.Setup(mockService => mockService.UpdateAlbumById(inputId, inputAlbum)).Returns(expectedServiceReturn);
 
         // Act
         var objectResult = albumsController.PutAlbumById(inputId, inputAlbum) as OkObjectResult;
-        var result = objectResult!.Value as Album;
+        var resultValue = objectResult!.Value as Album;
 
         // Assert
-        Assert.That(result, Is.EqualTo(expected));
+        Assert.That(resultValue, Is.EqualTo(expectedServiceReturn));
     }
 
     [Test]
     public void PutAlbumById_OnInvalidAlbum_ReturnsBadRequestObjectResult()
     {
         // Arrange
-        var inputId = 1;
-        var inputAlbum = new Album { Name = "Album1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        int inputId = 1;
+        Album inputAlbum = new Album { Name = "Album1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
         albumsController.ModelState.AddModelError("Artist", "The Artist field is required.");
 
         // Act
@@ -334,12 +335,11 @@ public class ControllerTests
     public void PutAlbumById_OnInvalidId_ReturnsBadRequestObjectResult()
     {
         // Arrange
-        var inputId = int.MaxValue;
-        var inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
+        int inputId = int.MaxValue;
+        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = "Genre1", Year = 2001 };
 
-        Album? expected = null;
-
-        _mockService.Setup(mockService => mockService.UpdateAlbumById(inputId, inputAlbum)).Returns(expected);
+        Album? expectedServiceReturn = null;
+        _mockService.Setup(mockService => mockService.UpdateAlbumById(inputId, inputAlbum)).Returns(expectedServiceReturn);
 
         // Act
         var objectResult = albumsController.PutAlbumById(inputId, inputAlbum) as BadRequestObjectResult;
@@ -354,9 +354,9 @@ public class ControllerTests
     public void DeleteAlbumById_OnValidId_ReturnsNoContentResult()
     {
         // Arrange
-        var inputId = 2;
+        int inputId = 2;
 
-        var expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
         _mockService.Setup(mockService => mockService.DeleteAlbumById(inputId)).Returns(expectedServiceReturn);
 
         // Act
@@ -370,9 +370,9 @@ public class ControllerTests
     public void DeleteAlbumById_CallsServiceMethodOnce()
     {
         // Arrange
-        var inputId = 2;
+        int inputId = 2;
 
-        var expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
+        Album expectedServiceReturn = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = "Genre2", Year = 2002 };
         _mockService.Setup(mockService => mockService.DeleteAlbumById(inputId)).Returns(expectedServiceReturn);
 
         // Act
@@ -386,7 +386,7 @@ public class ControllerTests
     public void DeleteAlbumById_OnInvalidId_ReturnsBadRequestObjectResult()
     {
         // Arrange
-        var inputId = int.MaxValue;
+        int inputId = int.MaxValue;
 
         Album? expectedServiceReturn = null;
         _mockService.Setup(mockService => mockService.DeleteAlbumById(inputId)).Returns(expectedServiceReturn);
