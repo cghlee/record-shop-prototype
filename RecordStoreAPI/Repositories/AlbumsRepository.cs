@@ -8,6 +8,7 @@ public interface IAlbumsRepository
     List<Album> GetAllAlbums();
     Album? FindAlbumById(int id);
     List<Album>? FindAlbumsByYear(int inputYear);
+    List<Album>? FindAlbumsByArtist(string artist);
     Album AddNewAlbum(Album newAlbum);
     Album? UpdateAlbumById(int id, Album albumToPut);
     Album? DeleteAlbumById(int id);
@@ -42,6 +43,17 @@ public class AlbumsRepository : IAlbumsRepository
             return null;
 
         return albumsFromYear;
+    }
+
+    public List<Album>? FindAlbumsByArtist(string artist)
+    {
+        List<Album> albumsByArtist = _albumsDbContext.Albums.Where(album => album.Artist.ToLower().Contains(artist.ToLower()))
+                                                            .ToList();
+
+        if (albumsByArtist.Count == 0)
+            return null;
+
+        return albumsByArtist;
     }
 
     public Album AddNewAlbum(Album newAlbum)

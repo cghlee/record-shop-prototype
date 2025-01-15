@@ -278,6 +278,122 @@ public class ControllerTests
     }
     #endregion
 
+    #region GetAlbumsByArtist method tests
+    [Test]
+    public void GetAlbumsByArtist_OnValidArtist_ReturnsOkObjectResult()
+    {
+        // Arrange
+        string inputArtist = "Artist1";
+
+        List<Album> expectedServiceReturn = new List<Album>()
+        {
+            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 },
+        };
+
+        _mockService.Setup(mockService => mockService.FindAlbumsByArtist(inputArtist)).Returns(expectedServiceReturn);
+
+        // Act
+        var objectResult = albumsController.GetAlbumsByArtist(inputArtist);
+
+        // Assert
+        Assert.That(objectResult, Is.TypeOf<OkObjectResult>());
+    }
+
+    [Test]
+    public void GetAlbumsByArtist_CallsServiceMethodOnce()
+    {
+        // Arrange
+        string inputArtist = "Artist1";
+
+        List<Album> expectedServiceReturn = new List<Album>()
+        {
+            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 },
+        };
+
+        _mockService.Setup(mockService => mockService.FindAlbumsByArtist(inputArtist)).Returns(expectedServiceReturn);
+
+        // Act
+        albumsController.GetAlbumsByArtist(inputArtist);
+
+        // Assert
+        _mockService.Verify(mockService => mockService.FindAlbumsByArtist(inputArtist), Times.Once());
+    }
+
+    [Test]
+    public void GetAlbumsByArtist_OnValidArtist_ReturnsListOfAlbumsType()
+    {
+        // Arrange
+        string inputArtist = "Artist1";
+
+        List<Album> expectedServiceReturn = new List<Album>()
+        {
+            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 },
+        };
+
+        _mockService.Setup(mockService => mockService.FindAlbumsByArtist(inputArtist)).Returns(expectedServiceReturn);
+
+        // Act
+        var objectResult = albumsController.GetAlbumsByArtist(inputArtist) as OkObjectResult;
+        var resultValue = objectResult!.Value as List<Album>;
+
+        // Assert
+        Assert.That(resultValue, Is.TypeOf<List<Album>>());
+    }
+
+    [Test]
+    public void GetAlbumsByArtist_OnValidArtist_ReturnsRetrievedAlbums()
+    {
+        // Arrange
+        string inputArtist = "Artist1";
+
+        List<Album> expectedServiceReturn = new List<Album>()
+        {
+            new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 },
+        };
+
+        _mockService.Setup(mockService => mockService.FindAlbumsByArtist(inputArtist)).Returns(expectedServiceReturn);
+
+        // Act
+        var objectResult = albumsController.GetAlbumsByArtist(inputArtist) as OkObjectResult;
+        var resultValue = objectResult!.Value as List<Album>;
+
+        // Assert
+        Assert.That(resultValue, Is.EquivalentTo(expectedServiceReturn));
+    }
+
+    [Test]
+    public void GetAlbumsByArtist_OnInvalidArtist_ReturnsBadRequestObjectResult()
+    {
+        // Arrange
+        string inputArtist = "";
+
+        List<Album>? expectedServiceReturn = null;
+        _mockService.Setup(mockService => mockService.FindAlbumsByArtist(inputArtist)).Returns(expectedServiceReturn);
+
+        // Act
+        var objectResult = albumsController.GetAlbumsByArtist(inputArtist);
+
+        // Assert
+        Assert.That(objectResult, Is.TypeOf<BadRequestObjectResult>());
+    }
+
+    [Test]
+    public void GetAlbumsByArtist_OnNotFoundArtist_ReturnsBadRequestObjectResult()
+    {
+        // Arrange
+        string inputArtist = "Artisttt";
+
+        List<Album>? expectedServiceReturn = null;
+        _mockService.Setup(mockService => mockService.FindAlbumsByArtist(inputArtist)).Returns(expectedServiceReturn);
+
+        // Act
+        var objectResult = albumsController.GetAlbumsByArtist(inputArtist);
+
+        // Assert
+        Assert.That(objectResult, Is.TypeOf<BadRequestObjectResult>());
+    }
+    #endregion
+
     #region PostNewAlbum method tests
     [Test]
     public void PostNewAlbum_OnValidInput_ReturnsOkObjectResult()

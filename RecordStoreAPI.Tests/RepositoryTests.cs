@@ -183,6 +183,88 @@ public class RepositoryTests
     }
     #endregion
 
+    #region FindAlbumsByArtist method tests
+    [Test]
+    public void FindAlbumsByArtist_OnValidArtist_ReturnsListOfAlbumsType()
+    {
+        // Arrange
+        string inputArtist = "Artist1";
+
+        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        _testDbContext.Albums.Add(seedAlbum);
+        _testDbContext.SaveChanges();
+
+        // Act
+        var result = albumsRepository.FindAlbumsByArtist(inputArtist);
+
+        // Assert
+        Assert.That(result, Is.TypeOf<List<Album>>());
+    }
+
+    [Test]
+    public void FindAlbumsByArtist_OnValidArtist_ReturnsRetrievedAlbums()
+    {
+        // Arrange
+        string inputArtist = "Artist2";
+
+        Album seedAlbum1 = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum2 = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
+        Album seedAlbum3 = new Album { Id = 3, Name = "Album3", Artist = "Artist2", Composer = "Composer3", Genre = Genre.Classical, Year = 2003 };
+        Album seedAlbum4 = new Album { Id = 4, Name = "Album4", Artist = "Artist3", Composer = "Composer4", Genre = Genre.Opera, Year = 2004 };
+
+        List<Album> seedAlbums = new List<Album>
+        {
+            seedAlbum1,
+            seedAlbum2,
+            seedAlbum3,
+            seedAlbum4,
+        };
+
+        List<Album> expected = new List<Album>
+        {
+            seedAlbum2,
+            seedAlbum3,
+        };
+
+        _testDbContext.Albums.AddRange(seedAlbums);
+        _testDbContext.SaveChanges();
+
+        // Act
+        var result = albumsRepository.FindAlbumsByArtist(inputArtist);
+
+        // Assert
+        Assert.That(result, Is.EquivalentTo(expected));
+    }
+
+    [Test]
+    public void FindAlbumsByArtist_OnInvalidArtist_ReturnsNull()
+    {
+        // Arrange
+        string inputArtist = "Artist4";
+
+        Album seedAlbum1 = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum2 = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
+        Album seedAlbum3 = new Album { Id = 3, Name = "Album3", Artist = "Artist2", Composer = "Composer3", Genre = Genre.Classical, Year = 2003 };
+        Album seedAlbum4 = new Album { Id = 4, Name = "Album4", Artist = "Artist3", Composer = "Composer4", Genre = Genre.Opera, Year = 2004 };
+
+        List<Album> seedAlbums = new List<Album>
+        {
+            seedAlbum1,
+            seedAlbum2,
+            seedAlbum3,
+            seedAlbum4,
+        };
+
+        List<Album>? expected = null;
+
+        // Act
+        var result = albumsRepository.FindAlbumsByArtist(inputArtist);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+    #endregion
+
     #region AddNewAlbum method tests
     [Test]
     public void AddNewAlbum_ReturnsAlbumType()

@@ -217,6 +217,85 @@ public class ServiceTests
     }
     #endregion
 
+    #region FindAlbumsByArtist method tests
+    [Test]
+    public void FindAlbumsByArtist_OnValidArtist_ReturnsListOfAlbumsType()
+    {
+        // Arrange
+        string inputArtist = "Artist2";
+
+        List<Album> expectedRepositoryReturn = new List<Album>
+        {
+            new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 },
+        };
+
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumsByArtist(inputArtist)).Returns(expectedRepositoryReturn);
+
+        // Act
+        var result = albumsService.FindAlbumsByArtist(inputArtist);
+
+        // Assert
+        Assert.That(result, Is.TypeOf<List<Album>>());
+    }
+
+    [Test]
+    public void FindAlbumsByArtist_CallsRepositoryMethodOnce()
+    {
+        // Arrange
+        string inputArtist = "Artist2";
+
+        List<Album> expectedRepositoryReturn = new List<Album>
+        {
+            new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 },
+        };
+
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumsByArtist(inputArtist)).Returns(expectedRepositoryReturn);
+
+        // Act
+        albumsService.FindAlbumsByArtist(inputArtist);
+
+        // Assert
+        _mockRepository.Verify(mockRepository => mockRepository.FindAlbumsByArtist(inputArtist), Times.Once());
+    }
+
+    [Test]
+    public void FindAlbumsByArtist_OnValidArtist_ReturnsRetrievedAlbums()
+    {
+        // Arrange
+        string inputArtist = "Artist2";
+
+        List<Album> expectedRepositoryReturn = new List<Album>
+        {
+            new Album { Id = 1, Name = "Album1", Artist = "Artist2", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 },
+            new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 },
+        };
+
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumsByArtist(inputArtist)).Returns(expectedRepositoryReturn);
+
+        // Act
+        var result = albumsService.FindAlbumsByArtist(inputArtist);
+
+        // Assert
+        Assert.That(result, Is.EquivalentTo(expectedRepositoryReturn));
+    }
+
+    [Test]
+    public void FindAlbumsByArtist_OnInvalidArtist_ReturnsNull()
+    {
+        // Arrange
+        string inputArtist = "Artisttt";
+
+        List<Album>? expectedRepositoryReturn = null;
+        _mockRepository.Setup(mockRepository => mockRepository.FindAlbumsByArtist(inputArtist)).Returns(expectedRepositoryReturn);
+
+        // Act
+        var result = albumsService.FindAlbumsByArtist(inputArtist);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedRepositoryReturn));
+    }
+    #endregion
+
     #region AddNewAlbum method tests
     [Test]
     public void AddNewAlbum_ReturnsAlbumType()

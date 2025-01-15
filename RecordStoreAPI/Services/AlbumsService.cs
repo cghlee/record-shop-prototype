@@ -8,6 +8,7 @@ public interface IAlbumsService
     List<Album> GetAllAlbums();
     Album? FindAlbumById(int id);
     List<Album>? FindAlbumsByYear(int year);
+    List<Album>? FindAlbumsByArtist(string artist);
     Album AddNewAlbum(Album newAlbum);
     Album? UpdateAlbumById(int id, Album albumToPut);
     Album? DeleteAlbumById(int id);
@@ -37,6 +38,12 @@ public class AlbumsService : IAlbumsService
     {
         List<Album>? albumsFromYear = _albumsRepository.FindAlbumsByYear(year);
         return albumsFromYear;
+    }
+
+    public List<Album>? FindAlbumsByArtist(string artist)
+    {
+        List<Album>? albumsByArtist = _albumsRepository.FindAlbumsByArtist(artist);
+        return albumsByArtist;
     }
 
     public Album AddNewAlbum(Album newAlbum)

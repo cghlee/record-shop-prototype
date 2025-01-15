@@ -45,6 +45,21 @@ public class AlbumsController : ControllerBase
         return Ok(albumsFromYear);
     }
 
+    [HttpGet]
+    [Route("Artist")]
+    public IActionResult GetAlbumsByArtist(string artist)
+    {
+        if (String.IsNullOrWhiteSpace(artist))
+            return BadRequest("Please enter a valid Artist.");
+
+        List<Album>? albumsByArtist = _albumsService.FindAlbumsByArtist(artist);
+
+        if (albumsByArtist == null)
+            return BadRequest($"No database album was released by Artist {artist}.");
+
+        return Ok(albumsByArtist);
+    }
+
     [HttpPost]
     public IActionResult PostNewAlbum(Album newAlbum)
     {
