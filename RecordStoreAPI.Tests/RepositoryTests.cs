@@ -33,7 +33,7 @@ public class RepositoryTests
     public void GetAllAlbums_ReturnsListOfAlbumsType()
     {
         // Arrange
-        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
         _testDbContext.Albums.Add(seedAlbum);
         _testDbContext.SaveChanges();
 
@@ -48,7 +48,7 @@ public class RepositoryTests
     public void GetAllAlbums_ReturnsRetrievedAlbums()
     {
         // Arrange
-        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
         _testDbContext.Albums.Add(seedAlbum);
         _testDbContext.SaveChanges();
 
@@ -72,7 +72,7 @@ public class RepositoryTests
         // Arrange
         int inputId = 1;
 
-        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
         _testDbContext.Albums.Add(seedAlbum);
         _testDbContext.SaveChanges();
 
@@ -89,7 +89,7 @@ public class RepositoryTests
         // Arrange
         int inputId = 1;
 
-        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
         _testDbContext.Albums.Add(seedAlbum);
         _testDbContext.SaveChanges();
 
@@ -107,7 +107,7 @@ public class RepositoryTests
         int inputId = int.MaxValue;
         Album? expected = null;
 
-        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
         _testDbContext.Albums.Add(seedAlbum);
         _testDbContext.SaveChanges();
 
@@ -126,7 +126,7 @@ public class RepositoryTests
         // Arrange
         int inputYear = 2001;
 
-        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
         _testDbContext.Albums.Add(seedAlbum);
         _testDbContext.SaveChanges();
 
@@ -143,9 +143,9 @@ public class RepositoryTests
         // Arrange
         int inputYear = 2001;
 
-        Album seedAlbum1 = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
-        Album seedAlbum2 = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Classical, Year = 2001 };
-        Album seedAlbum3 = new Album { Id = 3, Name = "Album3", Artist = "Artist3", Composer = "Composer3", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum1 = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
+        Album seedAlbum2 = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url2" };
+        Album seedAlbum3 = new Album { Id = 3, Name = "Album3", Artist = "Artist3", Composer = "Composer3", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url3" };
 
         List<Album> seedAlbums = new List<Album>
         { 
@@ -171,7 +171,7 @@ public class RepositoryTests
         int inputYear = int.MaxValue;
         List<Album>? expected = null;
 
-        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
         _testDbContext.Albums.AddRange(seedAlbum);
         _testDbContext.SaveChanges();
 
@@ -190,7 +190,7 @@ public class RepositoryTests
         // Arrange
         string inputArtist = "Artist1";
 
-        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
         _testDbContext.Albums.Add(seedAlbum);
         _testDbContext.SaveChanges();
 
@@ -207,10 +207,10 @@ public class RepositoryTests
         // Arrange
         string inputArtist = "Artist2";
 
-        Album seedAlbum1 = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
-        Album seedAlbum2 = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
-        Album seedAlbum3 = new Album { Id = 3, Name = "Album3", Artist = "Artist2", Composer = "Composer3", Genre = Genre.Classical, Year = 2003 };
-        Album seedAlbum4 = new Album { Id = 4, Name = "Album4", Artist = "Artist3", Composer = "Composer4", Genre = Genre.Opera, Year = 2004 };
+        Album seedAlbum1 = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
+        Album seedAlbum2 = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002, AlbumArtUrl = "Url2" };
+        Album seedAlbum3 = new Album { Id = 3, Name = "Album3", Artist = "Artist2", Composer = "Composer3", Genre = Genre.Classical, Year = 2003, AlbumArtUrl = "Url3" };
+        Album seedAlbum4 = new Album { Id = 4, Name = "Album4", Artist = "Artist3", Composer = "Composer4", Genre = Genre.Opera, Year = 2004, AlbumArtUrl = "Url4" };
 
         List<Album> seedAlbums = new List<Album>
         {
@@ -242,10 +242,10 @@ public class RepositoryTests
         // Arrange
         string inputArtist = "Artist4";
 
-        Album seedAlbum1 = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
-        Album seedAlbum2 = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
-        Album seedAlbum3 = new Album { Id = 3, Name = "Album3", Artist = "Artist2", Composer = "Composer3", Genre = Genre.Classical, Year = 2003 };
-        Album seedAlbum4 = new Album { Id = 4, Name = "Album4", Artist = "Artist3", Composer = "Composer4", Genre = Genre.Opera, Year = 2004 };
+        Album seedAlbum1 = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
+        Album seedAlbum2 = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002, AlbumArtUrl = "Url2" };
+        Album seedAlbum3 = new Album { Id = 3, Name = "Album3", Artist = "Artist2", Composer = "Composer3", Genre = Genre.Classical, Year = 2003, AlbumArtUrl = "Url3" };
+        Album seedAlbum4 = new Album { Id = 4, Name = "Album4", Artist = "Artist3", Composer = "Composer4", Genre = Genre.Opera, Year = 2004, AlbumArtUrl = "Url4" };
 
         List<Album> seedAlbums = new List<Album>
         {
@@ -270,7 +270,7 @@ public class RepositoryTests
     public void AddNewAlbum_ReturnsAlbumType()
     {
         // Arrange
-        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
 
         Album expected = new Album
         {
@@ -293,7 +293,7 @@ public class RepositoryTests
     public void AddNewAlbum_ReturnsAlbumWithId()
     {
         // Arrange
-        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album inputAlbum = new Album { Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
 
         Album expected = new Album
         {
@@ -327,11 +327,11 @@ public class RepositoryTests
     {
         // Arrange
         int inputId = 2;
-        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
+        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002, AlbumArtUrl = "Url2" };
 
-        Album expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
+        Album expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002, AlbumArtUrl = "Url2" };
 
-        Album originalAlbum = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album originalAlbum = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
         _testDbContext.Albums.Add(originalAlbum);
         _testDbContext.SaveChanges();
 
@@ -347,11 +347,11 @@ public class RepositoryTests
     {
         // Arrange
         int inputId = int.MaxValue;
-        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
+        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002, AlbumArtUrl = "Url2" };
 
         Album? expected = null;
 
-        Album originalAlbum = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album originalAlbum = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
         _testDbContext.Albums.Add(originalAlbum);
         _testDbContext.SaveChanges();
 
@@ -367,11 +367,11 @@ public class RepositoryTests
     {
         // Arrange
         int inputId = 2;
-        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
+        Album inputAlbum = new Album { Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002, AlbumArtUrl = "Url2" };
 
-        Album expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002 };
+        Album expected = new Album { Id = 2, Name = "Album2", Artist = "Artist2", Composer = "Composer2", Genre = Genre.Opera, Year = 2002, AlbumArtUrl = "Url2" };
 
-        Album originalAlbum = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album originalAlbum = new Album { Id = 2, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
         _testDbContext.Albums.Add(originalAlbum);
         _testDbContext.SaveChanges();
 
@@ -398,7 +398,7 @@ public class RepositoryTests
         // Arrange
         int inputId = 1;
 
-        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
         _testDbContext.Albums.Add(seedAlbum);
         _testDbContext.SaveChanges();
 
@@ -415,7 +415,7 @@ public class RepositoryTests
         // Arrange
         int inputId = 1;
 
-        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
         _testDbContext.Albums.Add(seedAlbum);
         _testDbContext.SaveChanges();
 
@@ -434,7 +434,7 @@ public class RepositoryTests
 
         Album? expected = null;
 
-        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
         _testDbContext.Albums.Add(seedAlbum);
         _testDbContext.SaveChanges();
 
@@ -451,7 +451,7 @@ public class RepositoryTests
         // Arrange
         int inputId = 1;
 
-        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001 };
+        Album seedAlbum = new Album { Id = 1, Name = "Album1", Artist = "Artist1", Composer = "Composer1", Genre = Genre.Classical, Year = 2001, AlbumArtUrl = "Url1" };
         _testDbContext.Albums.Add(seedAlbum);
         _testDbContext.SaveChanges();
 

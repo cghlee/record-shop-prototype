@@ -22,4 +22,7 @@ public class Album
     [Required]
     [Range(1850, 2100, ErrorMessage = "The Year field is missing, or invalid Year entered.")]
     public int Year { get; set; }
+
+    [Required]
+    public string AlbumArtUrl { get; set; } = "";
 }
